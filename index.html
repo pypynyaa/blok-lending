@@ -1,0 +1,1785 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Бери Дом - Строительство модульных домов</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: rgb(220, 44, 21);
+            --primary-light: rgb(255, 77, 54);
+            --secondary: #e0e0e0;
+            --accent: #cc0000;
+            --dark: #050505;
+            --light: #0b1012;
+            --gray: #777;
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Raleway', sans-serif;
+            color: var(--secondary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-color: var(--light);
+        }
+        
+        h1, h2, h3, h4, h5 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.5rem 0;
+            transition: var(--transition);
+        }
+        
+        header.scrolled {
+            background: rgba(5, 5, 5, 0.95);
+            padding: 1rem 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        
+        .logo-text {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary); /* Logo color changed to red */
+            margin-left: 0.5rem;
+            text-transform: uppercase;
+        }
+        
+        .logo-text sup {
+            font-size: 0.7rem;
+            vertical-align: top;
+            position: relative; /* TM lowered further */
+        }
+        
+        header.scrolled .logo-text {
+            color: var(--primary); /* Logo remains red when scrolled */
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-link {
+            color: var(--secondary);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        header.scrolled .nav-link {
+            color: var(--secondary);
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary);
+            transition: var(--transition);
+        }
+        
+        .nav-link:hover {
+            color: var(--primary);
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        
+        .menu-toggle {
+            display: none;
+            color: var(--secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        
+        header.scrolled .menu-toggle {
+            color: var(--secondary);
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('img/photo.jpg') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: var(--secondary);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s ease forwards 0.5s;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--accent);
+            color: var(--secondary);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+            border: 2px solid var(--accent);
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background: transparent;
+            color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+        }
+        
+        .btn-outline:hover {
+            background: var(--accent);
+            color: var(--secondary);
+        }
+        
+        /* WhatsApp Button */
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            color: var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 999;
+            transition: var(--transition);
+            animation: pulse 2s infinite;
+            text-decoration: none;
+        }
+
+        .whatsapp-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            background: var(--accent);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .whatsapp-btn {
+                bottom: 1.5rem;
+                right: 1.5rem;
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .whatsapp-btn {
+                bottom: 1rem;
+                right: 1rem;
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+        }
+        
+        /* Features Section */
+        .section {
+            padding: 5rem 0;
+            background: var(--light);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 1rem;
+        }
+        
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--secondary);
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background: #121212;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .feature-card.animate {
+            animation: fadeUp 0.5s ease forwards;
+        }
+        
+        .feature-card:nth-child(1) { animation-delay: 0.1s; }
+        .feature-card:nth-child(2) { animation-delay: 0.2s; }
+        .feature-card:nth-child(3) { animation-delay: 0.3s; }
+        .feature-card:nth-child(4) { animation-delay: 0.4s; }
+        .feature-card:nth-child(5) { animation-delay: 0.5s; }
+        .feature-card:nth-child(6) { animation-delay: 0.6s; }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+        
+        .feature-icon {
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--primary);
+            color: var(--secondary);
+            font-size: 4rem;
+        }
+        
+        .feature-content {
+            padding: 1.5rem;
+            color: var(--secondary);
+        }
+        
+        .feature-content h3 {
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+        
+        /* Gallery Section */
+        .gallery {
+            background: #121212;
+        }
+        
+        .gallery-container {
+            column-count: 4;
+            column-gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .gallery-item {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: var(--transition);
+            break-inside: avoid;
+            margin-bottom: 1.5rem;
+        }
+        
+        .gallery-item:nth-child(3n) {
+            height: 500px;
+        }
+        
+        .gallery-item:nth-child(5n) {
+            height: 600px;
+        }
+        
+        .gallery-item.animate {
+            animation: scaleUp 0.5s ease forwards;
+        }
+        
+        .gallery-item:nth-child(1) { animation-delay: 0.1s; }
+        .gallery-item:nth-child(2) { animation-delay: 0.1s; }
+        .gallery-item:nth-child(3) { animation-delay: 0.1s; }
+        .gallery-item:nth-child(4) { animation-delay: 0.1s; }
+        .gallery-item:nth-child(5) { animation-delay: 0.1s; }
+        .gallery-item:nth-child(6) { animation-delay: 0.1s; }
+        .gallery-item:nth-child(7) { animation-delay: 0.1s; }
+        .gallery-item:nth-child(8) { animation-delay: 0.1s; }
+        .gallery-item:nth-child(9) { animation-delay: 0.1s; }
+        .gallery-item:nth-child(10) { animation-delay: 0.1s; }
+        .gallery-item:nth-child(11) { animation-delay: 0.1s; }
+        .gallery-item:nth-child(12) { animation-delay: 0.1s; }
+        .gallery-item:nth-child(13) { animation-delay: 0.1s; }
+        .gallery-item:nth-child(14) { animation-delay: 0.1s; }
+        .gallery-item:nth-child(15) { animation-delay: 0.1s; }
+        .gallery-item:nth-child(16) { animation-delay: 0.1s; }
+        .gallery-item:nth-child(17) { animation-delay: 0.1s; }
+        .gallery-item:nth-child(18) { animation-delay: 0.1s; }
+        .gallery-item:nth-child(19) { animation-delay: 0.1s; }
+        .gallery-item:nth-child(20) { animation-delay: 0.1s; }
+        
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .gallery-item:hover .gallery-img {
+            transform: scale(1.1);
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(220, 44, 21, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: var(--transition);
+        }
+        
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+        
+        .gallery-btn {
+            color: var(--secondary);
+            font-size: 2rem;
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+        
+        .gallery-item:hover .gallery-btn {
+            transform: translateY(0);
+        }
+        
+        .view-more {
+            text-align: center;
+            margin-top: 3rem;
+        }
+        
+        /* Responsive adjustments for gallery */
+        @media (max-width: 1200px) {
+            .gallery-container {
+                column-count: 3;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .gallery-container {
+                column-count: 2;
+            }
+            .gallery-item:nth-child(5n) {
+                height: 400px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .gallery-container {
+                column-count: 1;
+            }
+            .gallery-item, .gallery-item:nth-child(3n), .gallery-item:nth-child(5n) {
+                height: 250px;
+            }
+        }
+        
+        /* Process Section */
+        .process-steps {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+            position: relative;
+        }
+        
+        .process-steps:before {
+            content: '';
+            position: absolute;
+            top: 50px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--primary-light);
+            z-index: -1;
+        }
+        
+        .step {
+            text-align: center;
+            width: 200px;
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .step.animate {
+            animation: fadeUp 0.5s ease forwards;
+        }
+        
+        .step:nth-child(1) { animation-delay: 0.1s; }
+        .step:nth-child(2) { animation-delay: 0.2s; }
+        .step:nth-child(3) { animation-delay: 0.3s; }
+        .step:nth-child(4) { animation-delay: 0.4s; }
+        
+        .step-icon {
+            width: 100px;
+            height: 100px;
+            background: var(--primary);
+            color: var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin: 0 auto 1.5rem;
+            position: relative;
+        }
+        
+        .step-icon:after {
+            content: '';
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 2px solid var(--primary-light);
+            animation: pulse 2s infinite;
+        }
+        
+        .step h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .step p {
+            color: var(--secondary);
+        }
+        
+        /* Team Section */
+        .team {
+            background: var(--light);
+        }
+        
+        .team-container {
+            display: grid;
+            grid-template-columns: repeat(3, 250px); /* Larger for laptop */
+            gap: 3rem; /* Increased gap */
+            justify-content: center;
+        }
+        
+        .team-card {
+            background: #121212;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(30px);
+            width: 250px; /* Larger for laptop */
+            height: 350px; /* Larger for laptop */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .team-card.animate {
+            animation: fadeUp 0.5s ease forwards;
+        }
+        
+        .team-card:nth-child(1) { animation-delay: 0.1s; }
+        .team-card:nth-child(2) { animation-delay: 0.2s; }
+        .team-card:nth-child(3) { animation-delay: 0.3s; }
+        
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+        
+        .team-img {
+            width: 100%;
+            height: 180px; /* Adjusted for larger laptop cards */
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        
+        .team-content {
+            padding: 0.5rem;
+            width: 100%;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: var(--secondary);
+        }
+        
+        .team-content h3 {
+            color: var(--primary);
+            font-size: 1.3rem; /* Larger for laptop */
+            margin-bottom: 0.2rem;
+        }
+        
+        .team-content p {
+            margin-bottom: 0.2rem;
+            font-size: 1.1rem; /* Larger for laptop */
+        }
+        
+        .team-content a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 1.1rem; /* Larger for laptop */
+        }
+        
+        .team-content a:hover {
+            color: var(--accent);
+        }
+        
+        /* Mobile team layout */
+        @media (max-width: 576px) {
+            .team-container {
+                grid-template-columns: repeat(3, 150px); /* Unchanged for mobile */
+                gap: 0.5rem;
+                justify-content: center;
+                overflow-x: auto;
+                padding: 0.5rem;
+            }
+            .team-card {
+                width: 150px; /* Unchanged for mobile */
+                height: 250px; /* Unchanged for mobile */
+            }
+            .team-img {
+                height: 120px; /* Unchanged for mobile */
+            }
+            .team-content h3 {
+                font-size: 0.9rem; /* Unchanged for mobile */
+            }
+            .team-content p {
+                font-size: 0.7rem; /* Unchanged for mobile */
+            }
+            .team-content a {
+                font-size: 0.7rem; /* Unchanged for mobile */
+            }
+        }
+        
+        /* Laptop adjustments */
+        @media (min-width: 769px) and (max-width: 1200px) {
+            .team-container {
+                grid-template-columns: repeat(3, 220px); /* Slightly smaller for smaller laptops */
+                gap: 2.5rem;
+            }
+            .team-card {
+                width: 220px;
+                height: 320px;
+            }
+            .team-img {
+                height: 160px;
+            }
+            .team-content h3 {
+                font-size: 1.2rem;
+            }
+            .team-content p {
+                font-size: 1rem;
+            }
+            .team-content a {
+                font-size: 1rem;
+            }
+        }
+        
+        /* Testimonials Section */
+        .testimonials {
+            background: var(--primary);
+            color: var(--secondary);
+        }
+        
+        .testimonials .section-title h2 {
+            color: var(--secondary);
+        }
+        
+        .testimonials-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .testimonial-card {
+            background: rgba(5, 5, 5, 0.8);
+            padding: 2rem;
+            border-radius: 10px;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .testimonial-card.animate {
+            animation: fadeUp 0.5s ease forwards;
+        }
+        
+        .testimonial-card:nth-child(2) { animation-delay: 0.1s; }
+        .testimonial-card:nth-child(3) { animation-delay: 0.2s; }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding: 0 1.5rem;
+            line-height: 1.6;
+            color: var(--secondary);
+        }
+        
+        .testimonial-text:before,
+        .testimonial-text:after {
+            content: '"';
+            font-size: 3rem;
+            position: absolute;
+            color: var(--secondary);
+            opacity: 0.5;
+        }
+        
+        .testimonial-text:before {
+            top: -1rem;
+            left: 0;
+        }
+        
+        .testimonial-text:after {
+            bottom: -2rem;
+            right: 0;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .author-info h4 {
+            margin-bottom: 0.2rem;
+            color: var(--secondary);
+        }
+        
+        .author-info p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            color: var(--secondary);
+        }
+        
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('img/IMAGE 2025-09-02 22:05:08.jpg') no-repeat center center/cover;
+            color: var(--secondary);
+            text-align: center;
+        }
+        
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta p {
+            margin-bottom: 2rem;
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        /* FAQ Section */
+        .faq-item {
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .faq-item.animate {
+            animation: fadeUp 0.5s ease forwards;
+        }
+        
+        .faq-item:nth-child(2) { animation-delay: 0.1s; }
+        .faq-item:nth-child(3) { animation-delay: 0.1s; }
+        .faq-item:nth-child(4) { animation-delay: 0.1s; }
+        .faq-item:nth-child(5) { animation-delay: 0.1s; }
+        
+        .faq-question {
+            background: var(--primary);
+            color: var(--secondary);
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+        
+        .faq-answer {
+            background: #121212;
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: var(--transition);
+            color: var(--secondary);
+        }
+        
+        .faq-item.active .faq-answer {
+            padding: 1.5rem;
+            max-height: 300px;
+        }
+        
+        .faq-item.active .faq-toggle i {
+            transform: rotate(180deg);
+        }
+        
+        .faq-toggle {
+            transition: var(--transition);
+            color: var(--secondary);
+        }
+        
+        /* Footer */
+        footer {
+            background: #000000;
+            color: var(--secondary);
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-column h3 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+        
+        .footer-column p, .footer-column li {
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column a {
+            color: var(--secondary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-column a:hover {
+            color: var(--primary);
+            padding-left: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            margin-right: 1rem;
+            transition: var(--transition);
+            color: var(--secondary);
+        }
+        
+        .social-links a:hover {
+            background: var(--accent);
+            color: var(--dark);
+            transform: translateY(-3px);
+        }
+        
+        .footer-social-link {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--secondary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-social-link:hover {
+            color: var(--primary);
+        }
+        
+        .footer-social-link svg {
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.7;
+        }
+        
+        /* Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+        
+        .modal.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            position: relative;
+            width: 90%;
+            max-width: 1000px;
+            max-height: 90vh;
+        }
+        
+        .modal-img {
+            width: 100%;
+            height: auto;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: var(--secondary);
+            font-size: 2rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .modal-close:hover {
+            color: var(--accent);
+        }
+        
+        .modal-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 2rem;
+        }
+        
+        .modal-btn {
+            color: var(--secondary);
+            font-size: 2rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .modal-btn:hover {
+            color: var(--accent);
+        }
+        
+        /* Overlay for mobile menu */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+        
+        .menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Animations */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes scaleUp {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+            }
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 10px rgba(37, 211, 102, 0);
+            }
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .process-steps {
+                justify-content: center;
+                gap: 2rem;
+            }
+            
+            .process-steps:before {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background: #121212;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: var(--transition);
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+                z-index: 1000;
+            }
+            
+            .nav-menu.active {
+                right: 0;
+            }
+            
+            .nav-link {
+                color: var(--secondary);
+                margin: 1.5rem 0;
+                font-size: 1.2rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                display: block;
+                width: 80%;
+                margin: 0.5rem 0;
+                text-align: center;
+            }
+            
+            .whatsapp-btn {
+                bottom: 1.5rem;
+                right: 1.5rem;
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .cta {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+            }
+
+            .cta-content {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                padding: 1rem;
+            }
+
+            .cta h2,
+            .cta p,
+            .cta .btn {
+                width: 100%;
+                max-width: 400px;
+                margin: 0.5rem auto;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .footer-column {
+                width: 100%;
+                max-width: 300px;
+                margin-bottom: 2rem;
+            }
+
+            .footer-column h3,
+            .footer-column p,
+            .footer-column ul {
+                text-align: center;
+            }
+
+            .footer-column ul {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .footer-column li {
+                margin: 0.5rem 0;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+
+            .footer__social {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .footer-social-link {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .copyright {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .cta h2 {
+                font-size: 1.8rem;
+            }
+
+            .cta p {
+                font-size: 1rem;
+            }
+
+            .cta .btn {
+                padding: 0.8rem 1.5rem;
+            }
+
+            .footer-column {
+                max-width: 250px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .feature-icon {
+                height: 150px;
+                font-size: 3rem;
+            }
+            
+            .step {
+                width: 100%;
+                margin-bottom: 2rem;
+            }
+            
+            .whatsapp-btn {
+                bottom: 1rem;
+                right: 1rem;
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+            
+            .nav-menu {
+                width: 80%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Overlay for mobile menu -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="container nav-container">
+            <a href="#home" class="logo">
+                <span class="logo-text">БЕРИ ДОМ<sup>ТМ</sup></span>
+            </a>
+            <div class="menu-toggle" id="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Главная</a></li>
+                <li><a href="#features" class="nav-link">Преимущества</a></li>
+                <li><a href="#gallery" class="nav-link">Галерея</a></li>
+                <li><a href="#process" class="nav-link">Процесс</a></li>
+                <li><a href="#team" class="nav-link">Команда</a></li>
+                <li><a href="#faq" class="nav-link">Вопросы</a></li>
+                <li><a href="#contact" class="nav-link">Контакты</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container hero-content">
+            <h1>Современные модульные дома под ключ</h1>
+            <p>Быстрое строительство, экологичные материалы и индивидуальные проекты для вашего комфорта</p>
+            <div class="hero-buttons">
+                <a href="#gallery" class="btn">Смотреть проекты</a>
+                <a href="#contact" class="btn btn-outline">Заказать консультацию</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Наши преимущества</h2>
+                <p>Почему выбирают именно наши модульные дома</p>
+            </div>
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Быстрое строительство</h3>
+                        <p>Возведение дома в 2-3 раза быстрее по сравнению с традиционными технологиями</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Экологичность</h3>
+                        <p>Используем только безопасные и экологически чистые материалы</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-euro-sign"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Доступная цена</h3>
+                        <p>Стоимость на 20-30% ниже традиционного строительства</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Индивидуальные проекты</h3>
+                        <p>Разработаем проект с учетом всех ваших пожеланий и потребностей</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Гарантия качества</h3>
+                        <p>Предоставляем гарантию 10 лет на все наши строения</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-snowflake"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Энергоэффективность</h3>
+                        <p>Специальная конструкция сохраняет тепло зимой и прохладу летом</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="section gallery" id="gallery">
+        <div class="container">
+            <div class="section-title">
+                <h2>Наши работы</h2>
+                <p>Реализованные проекты модульных домов</p>
+            </div>
+            <div class="gallery-container">
+                <!-- Gallery items will be generated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="section" id="process">
+        <div class="container">
+            <div class="section-title">
+                <h2>Процесс строительства</h2>
+                <p>Как мы создаем наши модульные дома</p>
+            </div>
+            <div class="process-steps">
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-pencil-alt"></i>
+                    </div>
+                    <h3>Проектирование</h3>
+                    <p>Создаем индивидуальный проект согласно вашим требованиям</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-hammer"></i>
+                    </div>
+                    <h3>Производство</h3>
+                    <p>Изготавливаем модули на современном оборудовании</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <h3>Доставка</h3>
+                    <p>Транспортируем модули к месту строительства</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3>Сборка</h3>
+                    <p>Собираем дом на подготовленном фундаменте</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>Отзывы клиентов</h2>
+                <p>Что говорят наши клиенты о сотрудничестве с нами</p>
+            </div>
+            <div class="testimonials-container">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        Очень доволен своим модульным домом! Строительство заняло всего 2 месяца. Спасибо компании Бери Дом за профессионализм и соблюдение сроков.
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-info">
+                            <h4>Иван П.</h4>
+                            <p>г. Омск</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        Выбрали модульный дом для дачи и ни разу не пожалели! Теплый, уютный, и главное - очень быстро построили. Зимой чувствуем себя комфортно, отопление работает отлично.
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-info">
+                            <h4>Елена С.</h4>
+                            <p>г. Омск</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        Заказывал модульный дом как инвестицию в туристический бизнес. Получил готовый объект в кратчайшие сроки, клиенты довольны комфортом. Отличное соотношение цены и качества!
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-info">
+                            <h4>Алексей К.</h4>
+                            <p>г. Омск</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="section team" id="team">
+        <div class="container">
+            <div class="section-title">
+                <h2>Наша команда</h2>
+                <p>Познакомьтесь с нашими профессионалами</p>
+            </div>
+            <div class="team-container">
+                <div class="team-card">
+                    <img src="img/employee1.jpg" alt="Андрей Балуев" class="team-img">
+                    <div class="team-content">
+                        <h3>Андрей Балуев</h3>
+                        <p>Руководитель проектного отдела</p>
+                        <p><a href="tel:+79620503111">+7 (962) 050-31-11</a></p>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <img src="img/employee2.jpg" alt="Владимир Красов" class="team-img">
+                    <div class="team-content">
+                        <h3>Владимир Красов</h3>
+                        <p>Руководитель производственного цеха</p>
+                        <p><a href="tel:+79088004296">+7 (908) 800-42-96</a></p>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <img src="img/employee3.jpg" alt="Алексей Малютин" class="team-img">
+                    <div class="team-content">
+                        <h3>Алексей Малютин</h3>
+                        <p>Руководитель по строительству</p>
+                        <p><a href="tel:+79048208858">+7 (904) 820-88-58</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section" id="faq">
+        <div class="container">
+            <div class="section-title">
+                <h2>Частые вопросы</h2>
+                <p>Ответы на самые популярные вопросы о модульных домах</p>
+            </div>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Сколько времени занимает строительство модульного дома?
+                        <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        В среднем, строительство модульного дома занимает от 1 до 3 месяцев, в зависимости от сложности проекта и площади дома. Это в 2-3 раза быстрее, чем строительство традиционного дома.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Насколько надежен модульный дом?
+                        <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        Модульные дома обладают высокой прочностью. Они строятся с соблюдением всех строительных норм и могут служить долго. Качество материалов не уступает традиционным домам.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Можно ли кастомизировать проект под свои нужды?
+                        <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        Да, мы предлагаем индивидуальное проектирование с учетом всех ваших пожеланий. Вы можете выбрать планировку, материалы отделки, дополнительные опции и многое другое.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Какой фундамент нужен для модульного дома?
+                        <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        Для модульных домов подходят различные типы фундаментов: свайный, ленточный, плитный. Выбор зависит от особенностей грунта на вашем участке и размеров дома. Наши специалисты помогут подобрать оптимальный вариант.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Можно ли строить модульный дом зимой?
+                        <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div class="faq-answer">
+                        Да, модульные дома можно строить в любое время года. Основные модули изготавливаются в заводских условиях, а сборка на участке занимает минимальное время, что позволяет вести конструкцию даже в холодное время года.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Готовы начать проект вашей мечты?</h2>
+                <p>Свяжитесь с нами для бесплатной консультации и расчета стоимости</p>
+                <a href="#contact" class="btn">Оставить заявку</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Бери Дом</h3>
+                    <p>Строительство современных модульных домов под ключ. Качество, скорость и надежность.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Контакты</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> г. Омск, ул. Учебная, д. 79</p>
+                    <p><i class="fas fa-phone"></i> +7 (962) 050-31-11</p>
+                    <p><i class="fas fa-envelope"></i> mail@beridom.ru</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Быстрые ссылки</h3>
+                    <ul>
+                        <li><a href="#home">Главная</a></li>
+                        <li><a href="#features">Преимущества</a></li>
+                        <li><a href="#gallery">Галерея</a></li>
+                        <li><a href="#process">Процесс</a></li>
+                        <li><a href="#team">Команда</a></li>
+                        <li><a href="#faq">Вопросы</a></li>
+                        <li><a href="#contact">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Разработчик</h3>
+                    <div class="footer__social">
+                        <a href="https://github.com/pypynyaa" target="_blank" rel="noopener noreferrer" class="footer-social-link">
+                            <svg width="20" height="20" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/>
+                            </svg>
+                            GitHub
+                        </a>
+                        <a href="https://t.me/pypynyaa" target="_blank" rel="noopener noreferrer" class="footer-social-link">
+                            <svg width="20" height="20" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/>
+                            </svg>
+                            Telegram
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Бери Дом. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/79620503111" class="whatsapp-btn" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Modal -->
+    <div class="modal" id="imageModal">
+        <div class="modal-content">
+            <span class="modal-close" id="modalClose">&times;</span>
+            <img class="modal-img" id="modalImage" src="" alt="">
+            <div class="modal-nav">
+                <div class="modal-btn" id="prevBtn"><i class="fas fa-chevron-left"></i></div>
+                <div class="modal-btn" id="nextBtn"><i class="fas fa-chevron-right"></i></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Generate gallery items
+        const galleryContainer = document.querySelector('.gallery-container');
+        const yourImages = [
+            'img/photo1.jpg',
+            'img/photo2.jpg',
+            'img/photo3.jpg',
+            'img/photo4.jpg',
+            'img/photo5.jpg',
+            'img/photo6.jpg',
+            'img/photo7.jpg',
+            'img/photo8.jpg',
+            'img/photo9.jpg',
+            'img/photo10.jpg',
+            'img/photo11.jpg',
+            'img/photo12.jpg',
+            'img/photo13.jpg',
+            'img/photo14.jpg',
+            'img/photo15.jpg',
+            'img/photo16.jpg',
+            'img/photo17.jpg',
+            'img/photo18.jpg',
+            'img/photo19.jpg',
+            'img/photo20.jpg'
+        ];
+
+        yourImages.forEach((imageSrc, index) => {
+            const galleryItem = document.createElement('div');
+            galleryItem.className = 'gallery-item';
+            galleryItem.innerHTML = `
+                <img src="${imageSrc}" alt="Модульный дом ${index + 1}" class="gallery-img">
+                <div class="gallery-overlay">
+                    <div class="gallery-btn">
+                        <i class="fas fa-search-plus"></i>
+                    </div>
+                </div>
+            `;
+            galleryContainer.appendChild(galleryItem);
+        });
+
+        // Header scroll effect
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu functionality
+        const menuToggle = document.getElementById('menu-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+        const menuOverlay = document.getElementById('menuOverlay');
+        const body = document.body;
+        
+        function toggleMenu() {
+            navMenu.classList.toggle('active');
+            menuOverlay.classList.toggle('active');
+            body.classList.toggle('no-scroll');
+        }
+        
+        function closeMenu() {
+            navMenu.classList.remove('active');
+            menuOverlay.classList.remove('active');
+            body.classList.remove('no-scroll');
+        }
+        
+        menuToggle.addEventListener('click', toggleMenu);
+        menuOverlay.addEventListener('click', closeMenu);
+        
+        // Close mobile menu when clicking on nav links
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+
+        // Scroll animations
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.feature-card, .gallery-item, .step, .testimonial-card, .faq-item, .team-card');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.3;
+                
+                if (elementPosition < screenPosition) {
+                    element.classList.add('animate');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+
+        // Modal functionality
+        const modal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        const modalClose = document.getElementById('modalClose');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        let currentImageIndex = 0;
+
+        // Open modal with clicked image
+        galleryItems.forEach((item, index) => {
+            item.addEventListener('click', () => {
+                currentImageIndex = index;
+                modalImage.src = item.querySelector('img').src;
+                modal.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        // Close modal
+        modalClose.addEventListener('click', () => {
+            modal.classList.remove('open');
+            document.body.style.overflow = 'auto';
+        });
+
+        // Navigate images
+        prevBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            currentImageIndex = (currentImageIndex - 1 + galleryItems.length) % galleryItems.length;
+            modalImage.src = galleryItems[currentImageIndex].querySelector('img').src;
+        });
+
+        nextBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            currentImageIndex = (currentImageIndex + 1) % galleryItems.length;
+            modalImage.src = galleryItems[currentImageIndex].querySelector('img').src;
+        });
+
+        // Close modal when clicking outside
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('open');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // FAQ toggle
+        const faqItems = document.querySelectorAll('.faq-item');
+        
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                item.classList.toggle('active');
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    closeMenu();
+                    
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
